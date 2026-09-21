@@ -1,0 +1,41 @@
+{
+  "name": "safe-deploy-rescue",
+  "version": "1.0.0",
+  "description": "Replay Safe createProxyWithNonce so a Safe is recreated at the same CREATE2 address on another EVM chain",
+  "type": "module",
+  "scripts": {
+    "extract": "node src/extract-safe-params.js",
+    "find-nonce": "node src/find-salt-nonce.js",
+    "deploy": "node src/deploy-polygon.js",
+    "deploy:polygon": "node src/deploy-polygon.js",
+    "deploy:flare": "node src/deploy-flare.js",
+    "deploy:flare-batch": "node src/deploy-flare-batch.js",
+    "verify": "node src/verify-deployment.js",
+    "full-rescue": "node src/full-rescue.js",
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "ethers": "^6.9.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "gnosis-safe",
+    "safe",
+    "create2",
+    "cross-chain",
+    "flare"
+  ],
+  "author": "Jose Ramirez <jose@palmeradao.xyz>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jozer-rami/safe-deploy-rescue.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jozer-rami/safe-deploy-rescue/issues"
+  },
+  "homepage": "https://github.com/jozer-rami/safe-deploy-rescue#readme"
+}
