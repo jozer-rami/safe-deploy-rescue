@@ -32,11 +32,21 @@ npm install
 cp .env.example .env
 ```
 
+Fill `.env`: `SOURCE_RPC_URL`, `TARGET_RPC_URL`, `CREATION_TX_HASH`, `SAFE_ADDRESS`, and (for a live send) `DEPLOYER_PRIVATE_KEY`. Explorer keys in `.env.example` are optional; the scripts use RPCs.
+
+Agents working in this repo: see [AGENTS.md](AGENTS.md).
+
 ## Usage
 
 Deploys are **dry-run** unless you set `BROADCAST=1`.
 
 ### 1. Extract original CREATE2 inputs
+
+```bash
+npm run extract
+```
+
+Or without `.env`:
 
 ```bash
 SOURCE_RPC_URL=https://rpc.gnosischain.com \
@@ -47,21 +57,21 @@ npm run extract
 
 This decodes `singleton`, `initializer`, and `saltNonce` from the factory transaction and proves the CREATE2 address.
 
+On an explorer, open the Safe’s **internal transactions** and use the tx that calls `ProxyFactory.createProxyWithNonce`.
+
 ### 2. Replay on the target chain
 
 ```bash
-CREATION_TX_HASH=0x... \
-SOURCE_RPC_URL=https://rpc.gnosischain.com \
-TARGET_RPC_URL=https://polygon-rpc.com \
-SAFE_ADDRESS=0x... \
 npm run full-rescue
 ```
 
 Send the transaction:
 
 ```bash
-BROADCAST=1 DEPLOYER_PRIVATE_KEY=0x... npm run full-rescue
+BROADCAST=1 npm run full-rescue
 ```
+
+The deployer only pays gas. It does not become an owner.
 
 ### 3. Verify live config
 
